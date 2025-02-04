@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-python-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: dev-control
+    server: https://kubernetes.default.svc
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ApplyOutOfSyncOnly=true
+    - PruneLast=true
+    - Replace=true
+  revisionHistoryLimit: 3
+  sources:
+    # This source is used to point to this file
+    - repoURL: https://github.com/uneycom/helm-zip-test.git
+      path: argocd/apps/eks-python-app-service/dev
+      targetRevision: main
+    # This source is used to get the helm chart
+    - repoURL: 'https://raw.githubusercontent.com/uneycom/helm-zip-test/main/kubernetes/k8s-charts/package/'
+      chart: eks-project
+      targetRevision: 0.1.1
+      helm:
+        valueFiles:
+          - $values/argocd/apps/eks-python-app-service/dev/values.yaml
+
+    # This source is used to get the values.yaml file to fill the helm chart above
+    - repoURL: 'https://github.com/uneycom/helm-zip-test.git'
+      targetRevision: main
+      ref: values

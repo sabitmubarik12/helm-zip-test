@@ -1,0 +1,71 @@
+apiVersion: v1
+entries:
+  argo-cd:
+  - apiVersion: v2
+    appVersion: v2.12.3
+    digest: a7aa33990812373a55dbf677dd98662c06f4925d053ef94842754e15f61848c2
+    maintainers:
+    - name: devops
+    name: argo-cd
+    sources:
+    - https://github.com/argoproj/argo-helm/tree/main/charts/argo-cd
+    - https://github.com/argoproj/argo-cd
+    urls:
+    - argo-cd-7.5.2.tgz
+    version: 7.5.2
+  aws-load-balancer-controller:
+  - apiVersion: v2
+    appVersion: v2.8.2
+    description: AWS Load Balancer Controller Helm chart for Kubernetes
+    digest: e6f538f49b2699ad7c88840559b87144840a95b2bc2d967968f974dabd708774
+    home: https://github.com/aws/eks-charts
+    maintainers:
+    - name: devops
+    name: aws-load-balancer-controller
+    sources:
+    - https://github.com/aws/eks-charts
+    urls:
+    - aws-load-balancer-controller-1.8.2.tgz
+    version: 1.8.2
+  fluent-bit:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Updated Fluent Bit OCI image to v3.1.9"
+    apiVersion: v1
+    appVersion: 3.1.9
+    created: "2024-10-22T14:19:24.86602+04:00"
+    digest: 094ca28882987d95605326a85c871f483c5ff2ee2a0213e284973284d55bd234
+    keywords:
+    - logging
+    - fluent-bit
+    - fluentd
+    maintainers:
+    - name: devops
+    name: fluent-bit
+    sources:
+    - https://github.com/fluent/fluent-bit/
+    urls:
+    - fluent-bit-0.47.10.tgz
+    version: 0.47.10
+  prometheus:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Updated prometheus chart at version 26.0.0"
+    apiVersion: v2
+    appVersion: v3.0.0
+    created: "2024-10-22T14:19:24.86602+04:00"
+    digest: bad4d4ff075579f8539cc5624f40d75d534b446c140e276e61b32ae27b6fb3be
+    keywords:
+    - monitoring
+    - prometheus
+    - metrics
+    maintainers:
+    - name: devops
+    name: prometheus
+    sources:
+    - https://github.com/prometheus/prometheus/
+    urls:
+    - prometheus-26.0.0.tgz
+    version: 26.0.0

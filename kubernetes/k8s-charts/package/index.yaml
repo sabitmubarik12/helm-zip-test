@@ -1,0 +1,15 @@
+apiVersion: v1
+entries:
+  eks-project:
+  - apiVersion: v1
+    appVersion: 0.1.1
+    description: A backend chart, with microservices to support EKS-Project Apps
+    digest: b60db96118bd8547a2438e4691b194bf01d3696c944e3150a7ba4e480f92395b
+    home: https://devops.sabitmubarik.com
+    maintainers:
+    - email: sabit_mubarik@yahoo.com
+      name: devops
+    name: eks-project
+    urls:
+    - eks-project-0.1.1.tgz
+    version: 0.1.1

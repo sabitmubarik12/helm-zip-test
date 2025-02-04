@@ -1,0 +1,120 @@
+name: test-python-app
+tier: application
+replicaCount: 1
+image:
+  registry: 533267093295.dkr.ecr.ap-southeast-1.amazonaws.com
+  repository: eks-project-repository
+  tag: latest
+  pullPolicy: Always
+  containerPort: 5000
+  imagePullSecrets: []
+  #   - name: myRegistryKeySecretName
+  command: []
+
+fullnameOverride: ""
+
+serviceAccount:
+  enabled: true
+  role: arn:aws:iam::533267093295:role/eks-project-dev-control-sa
+  serviceAccountName: "dev-control-sa"
+
+securityContext:
+  runAsUser: 1000
+  runAsGroup: 1000
+  readOnlyRootFilesystem: false
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - "ALL"
+    add:
+      - "CAP_CHOWN"
+      - "CAP_DAC_OVERRIDE"
+      - "CAP_FOWNER"
+      - "CAP_FSETID"
+      - "CAP_KILL"
+      - "CAP_SETGID"
+      - "CAP_SETUID"
+      - "CAP_SETPCAP"
+      - "CAP_NET_BIND_SERVICE"
+      - "CAP_NET_RAW"
+      - "CAP_SYS_CHROOT"
+      - "CAP_MKNOD"
+      - "CAP_AUDIT_WRITE"
+      - "CAP_SETFCAP"
+
+livenessProbe:
+  enabled: false
+
+readinessProbe:
+  enabled: false
+
+resources:
+  requests:
+    cpu: "250m"
+    memory: "250Mi"
+  limits:
+    cpu: "1"
+    memory: "1Gi"
+
+lifecycle: {}
+
+affinity: {}
+
+tolerations: {}
+
+nodeSelector: {}
+
+mounts: []
+
+serverBlock: {}
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 15
+  # specify target CPU % utilization
+  targetCPUUtilizationPercentage: 85
+  # specify target CPU average value
+  # specify target Memory % utilization
+  targetMemoryUtilizationPercentage: 85
+  # specify target Memory average value
+
+service:
+  type: ClusterIP
+
+  port: 5000
+
+  externalTrafficPolicy: ""
+
+  enabledHeadless: false
+
+ingress:
+  enabled: true
+  className: "alb"
+  hostname: 
+    - host: dev-alb.sabitmubarik.com
+      paths:
+        - /
+      pathType: "Prefix"
+  annotations:
+    kubernetes.io/ingress.class: "alb"
+    alb.ingress.kubernetes.io/name: "dev-alb-eks-project"
+    alb.ingress.kubernetes.io/group.name: "dev-ingress-eks-project"
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-2:533267093295:certificate/264f18f2-1e0e-4e9a-a1ba-67f579e987ef
+
+enabledDeployment: true
+
+cronjobs: []
+
+workers: {}
+
+preInstalls: {}
+
+hostAliases: {}
+
+podLabels: {}
+  # label1: value1
+  # label2: value2
